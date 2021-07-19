@@ -15,4 +15,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Arobic
-        path: /home/runner/work/Arobic/Arobic/
+        path: /home/runner/work/Arobic/Arobic/Arobic.iso
