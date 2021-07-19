@@ -9,5 +9,4 @@ jobs:
       with:
         node-version: '14'
     - run: sudo apt install coreutils zutils cpio genisoimage
-    - run: npm install -g electron-iso-packager
-    - run: sudo electron-iso-packager ./ ArobicOS
+    - run: npm install -g electron-iso-packager && sudo electron-iso-packager ./ ArobicOS
