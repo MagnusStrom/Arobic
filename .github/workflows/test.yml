@@ -8,5 +8,5 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
-    - run: apt install coreutils zutils cpio genisoimage
+    - run: sudo apt install coreutils zutils cpio genisoimage
     - run: npm install electron-iso-packager
