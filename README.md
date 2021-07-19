@@ -1,3 +1,5 @@
 OS Written in HTML/CSS/JS
 i'm really fucking retarded ill add mor later
 # ArobicOS
+
+i am using https://distro.ibiblio.org/tinycorelinux/
