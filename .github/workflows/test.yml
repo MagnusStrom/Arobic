@@ -16,6 +16,8 @@ jobs:
       with:
         name: Arobic
         path: /home/runner/work/Arobic/Arobic/Arobic.iso
+    - name: Publish Artifact 2
+      uses: actions/upload-artifact@v2
       with:
-        name: Save?
-        path: /home/runner/work/Arobic/Arobic/autostart.sh
+        name: TestSHit
+        path: /home/runner/work/Arobic/Arobic/startup.sh
