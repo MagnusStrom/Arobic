@@ -10,4 +10,4 @@ jobs:
         node-version: '14'
     - run: sudo apt install coreutils zutils cpio genisoimage
     - run: npm install electron-iso-packager -g
-    - run: $HOME/.npm-global/lib/node_modules/electron-iso-packager ./ Arobic
+    - run:  /opt/hostedtoolcache/node/14.17.3/x64/lib/node_modules/electron-iso-packager/electron-iso-packager.sh ./ Arobic
