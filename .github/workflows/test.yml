@@ -2,12 +2,13 @@ name: Test
 on: [push]
 jobs:
   Test:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
+    - run: ls
     - run: sudo apt install coreutils zutils cpio genisoimage
     - run: npm install electron-iso-packager -g
     - run: sudo /opt/hostedtoolcache/node/14.17.3/x64/lib/node_modules/electron-iso-packager/electron-iso-packager.sh ./ Arobic
@@ -16,8 +17,3 @@ jobs:
       with:
         name: Arobic
         path: /home/runner/work/Arobic/Arobic/Arobic.iso
-    - name: Publish Artifact 2
-      uses: actions/upload-artifact@v2
-      with:
-        name: TestSHit
-        path: /home/runner/work/Arobic/Arobic/startup.sh
