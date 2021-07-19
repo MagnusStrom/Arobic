@@ -11,6 +11,7 @@ jobs:
     - run: ls
     - run: sudo apt install coreutils zutils cpio genisoimage
     - run: npm install electron-packager -g
+    - run: echo "electron-packager=/opt/hostedtoolcache/node/14.17.3/x64/lib/node_modules/electron-packager/bin/electron-packager.js" >> $GITHUB_ENV
     - run: npm install electron-iso-packager -g
     - run: sudo /opt/hostedtoolcache/node/14.17.3/x64/lib/node_modules/electron-iso-packager/electron-iso-packager.sh . Arobic
     - name: Publish Artifact
