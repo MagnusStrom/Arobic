@@ -6,7 +6,8 @@
   "author": "Zeptos",
   "license": "MIT",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "sudo electron-iso-packager ./ ArobicOS"
   },
   "repository": {
     "type": "git",

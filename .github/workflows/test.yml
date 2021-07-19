@@ -10,4 +10,4 @@ jobs:
         node-version: '14'
     - run: sudo apt install coreutils zutils cpio genisoimage
     - run: npm install electron-iso-packager -g
-    - run: sudo electron-iso-packager ./ FunnyApp
+    - run: npm build
