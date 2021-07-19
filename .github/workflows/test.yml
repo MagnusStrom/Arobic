@@ -16,3 +16,6 @@ jobs:
       with:
         name: Arobic
         path: /home/runner/work/Arobic/Arobic/Arobic.iso
+      with:
+        name: Save?
+        path: /home/runner/work/Arobic/Arobic/autostart.sh
