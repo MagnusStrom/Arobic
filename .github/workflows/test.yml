@@ -10,10 +10,9 @@ jobs:
         node-version: '14'
     - run: ls
     - run: sudo apt install coreutils zutils cpio genisoimage
+    - run: npm install electron-packager -g
     - run: git clone https://github.com/MagnusStrom/electron-iso-packager.git
     - run: sudo electron-iso-packager/electron-iso-packager.sh ./ Arobic
-  #  - run: npm install electron-iso-packager -g
-   # - run: sudo /opt/hostedtoolcache/node/14.17.3/x64/lib/node_modules/electron-iso-packager/electron-iso-packager.sh . Arobic
     - name: Publish Artifact
       uses: actions/upload-artifact@v2
       with:
