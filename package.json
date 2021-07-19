@@ -1,0 +1,25 @@
+{
+  "name": "arobicos",
+  "version": "1.0.0",
+  "description": "A lightweight OS",
+  "main": "main.js",
+  "author": "Zeptos",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MagnusStrom/ArobicOS.git"
+  },
+  "keywords": [
+    "arobic"
+  ],
+  "bugs": {
+    "url": "https://github.com/MagnusStrom/ArobicOS/issues"
+  },
+  "homepage": "https://github.com/MagnusStrom/ArobicOS#readme",
+  "devDependencies": {
+    "electron": "^13.1.7"
+  }
+}
