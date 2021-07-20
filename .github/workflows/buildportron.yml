@@ -1,4 +1,4 @@
-name: Builde2i
+name: BuildPortron
 on: [push]
 jobs:
   Test:
@@ -10,7 +10,7 @@ jobs:
         node-version: '14'
     - run: mkdir portron
     - run: cd portron
-    - run: git clone https://github.com/nebular/Portron.git .
+    - run: git clone https://github.com/nebular/Portron.git
     - run: cd Portron
     - run: ./install.sh
     - run: npm install yarn
