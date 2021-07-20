@@ -20,14 +20,6 @@ function createWindow () {
   mainWindow.maximize();
   mainWindow.show();
 
-  mainWindow.webContents
-  .on("before-input-event",
-    (event,input)=>
-      { 
-        if(input.code=='F4'&&input.alt) 
-            event.preventDefault();
-      }
-  );
   // and load the index.html of the app.
 
   // Open the DevTools.
