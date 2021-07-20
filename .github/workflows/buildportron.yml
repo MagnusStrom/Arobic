@@ -10,6 +10,7 @@ jobs:
         node-version: '14'
     - run: mkdir portron
     - run: cd portron
+    - run: ls
     - run: git clone https://github.com/nebular/Portron.git
     - run: cd Portron
     - run: ls
