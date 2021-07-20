@@ -25,6 +25,15 @@ function createWindow () {
   // mainWindow.webContents.openDevTools()
 }
 
+
+window.webContents
+.on("before-input-event",
+  (event,input)=>
+     { 
+       if(input.code=='F4'&&input.alt) 
+          event.preventDefault();
+     }
+ );
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
