@@ -1,4 +1,4 @@
-name: Test
+name: Builde2i
 on: [push]
 jobs:
   Test:
