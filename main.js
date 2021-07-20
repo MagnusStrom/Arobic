@@ -11,11 +11,14 @@ function createWindow () {
     height: 1080,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
-    }
-  })
+    },
+    show: false,
 
+  });
+  mainWindow.loadFile('ui/index.html');
+  mainWindow.maximize();
+  mainWindow.show();
   // and load the index.html of the app.
-  mainWindow.loadFile('ui/index.html')
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
