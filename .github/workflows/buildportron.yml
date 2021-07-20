@@ -12,6 +12,7 @@ jobs:
     - run: cd portron
     - run: git clone https://github.com/nebular/Portron.git
     - run: cd Portron
+    - run: ls
     - run: ./install.sh
     - run: npm install yarn
     - run: yarn add electron-builder --dev
