@@ -12,6 +12,7 @@ jobs:
     - run: sudo apt install coreutils zutils cpio genisoimage
     - run: npm install --save-dev electron
     - run: npm install electron-packager -g
+    - run: npm install --save-dev electron-builder
     - run: git clone https://github.com/MagnusStrom/electron-iso-packager.git
     - run: sudo electron-iso-packager/electron-iso-packager.sh ./ Arobic
     - name: Publish Artifact
