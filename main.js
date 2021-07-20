@@ -13,7 +13,8 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     },
     show: false,
-    autoHideMenuBar: true
+    autoHideMenuBar: true, 
+    frame: false
   });
   mainWindow.loadFile('ui/index.html');
   mainWindow.maximize();
