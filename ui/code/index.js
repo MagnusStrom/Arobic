@@ -318,7 +318,7 @@ function doubleFEvent() {
     setTimeout(() => (timesFClicked = 0), 200)
   }  
 }
-
+//what
 function closeFullScreen() {
   document.getElementById("fullscreenelem").innerHTML = '';
   refreshScreen();
