@@ -1,0 +1,3 @@
+parent.M.toast({html: "Opening all apps, prepare for cancer."});
+for (child in parent.document.getElementById('desktop').children) { parent.launchApp(parent.document.getElementById('desktop').children[child].id.replace("icon", "")) }
+parent.M.toast({html: "Success!"});

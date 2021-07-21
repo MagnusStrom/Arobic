@@ -1,13 +1,24 @@
-Welcome to arobicOS!
-I got this idea from a april fools github and I was like "Shit, why not"
-Some things may say glizzy instead of arobic, this was originally a joke. But at this point its starting turning into something cool.
+Heya! If you read this, you probably want to learn about the more developer features of arobic os. If not, move on.
 
-This is NOT REQUIRED, but you'll want to disable Same-Origin-Policy for the OS to be fully functional. Scroll down https://stackoverflow.com/questions/29983786/blocked-a-frame-of-origin-null-from-accessing-a-cross-origin-frame-chrome/65234451 here to find out how for your browser.
+- Why did I made developer features?
+Idk, Probably not many will use them, but they're fun and i'm bored.
 
-A lot of the original apps are stolen BTW. (FROM GITHUB)
+For betas, I couldn't use electron(I coded this at school lol), so I installed the liveserver extention from VSC to bypass google CORS blocking. seems to work as normal.(installing apps from pkginstaller seems buggy but thats it)
 
-FOR DEVELOPERS LOOKING TO MAKE APPS:
+SCRIPTS
+I made scripts instead of plugins because scripts can run anything, including probably making plugins. Scripts is a developer way for users to mod their arobicOS without having to go into the code.
 
+Starting out with scripts
+To start out with scripts, Install scriptmanager from package installer. It looks bad because I'm lazy, I'll fix it later.
+Then, you can open the app and pick a script. There should be atleast one script in there(openallapps.arbs, opens most if not all apps idk its just a test), Go into ui/scripts and create a script, name it whatever you want.arbs.
+Scripts use pure javascript. The way it is run is simply running eval on every like in the script, so Idk if you can define variables.
+When running a script, the script is being run as ScriptManager. So to access functions on the desktop or in index.js, you'll need to add parent.(function)
+For example: parent.launchApp('appstore') will launch appstore.
+
+All apps have an id, usually there repo name plus frame, or plus icon. For example, the icon for appstore will have id 'appstoreicon'.
+
+APPS
+(Copy and pasted from README)
 NOTE: Making apps is STILL in beta. I even came across an issue while making the example app, and had to modify the code to fix it!
 
 Apps in this operating system are just a website embedded in an iframe.

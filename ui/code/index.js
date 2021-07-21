@@ -10,17 +10,45 @@ Storage.prototype.getObject = function(key) {
   return JSON.parse(this.getItem(key));
 }
 
+// hardcoding incase i didint earlier
+var tasks = localStorage.getObject('info');
+tasks.openapps = {};
+localStorage.setObject('info', tasks);
+
 // Logging things to terminal
 console.trace = function(msg) {
   try {
-    document.getElementById('Terminalframe').contentWindow.addLog(msg);
+    document.getElementById('Terminalframe_1').contentWindow.addLog(msg);
   } catch(e) {
   }
 }
 
-
 // nooo more scrolling!
 window.onscroll = function () { window.scrollTo(0, 0); };
+
+// wifi
+// material icons bad so i cant update them, so i do this instead lolol
+window.addEventListener('load', function(e) {
+  if (navigator.onLine) {
+    console.trace("Wifi Online");
+    document.getElementById("wifi").innerHTML = `<li>WIFI ON</li>`;
+  } else {
+    document.getElementById("wifi").innerHTML = `<li>WIFI OFF</li>`;
+   console.trace("Wifi Offline");
+  }
+  console.trace(wifi);
+}, false);
+
+window.addEventListener('online', function(e) {
+  console.trace("Wifi back online");
+  document.getElementById("wifi").innerHTML = `<li>WIFI ON</li>`;
+}, false);
+
+window.addEventListener('offline', function(e) {
+  console.trace("Wifi back offline"); // listen man idk
+  wifi = `<li>WIFI OFF</li>`;
+}, false);
+
 
 // Resizing
 $(window).resize(function() {
@@ -35,10 +63,10 @@ $(window).resize(function() {
     icony += 100;
   }
   if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == false) { // the right way(also me just being lazy but uno)
-    document.getElementById("desktop").innerHTML += `<i onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons white-text tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
+    document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons white-text tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
     console.trace(`Loaded app ${object[property].name}`);
   } else {
-    document.getElementById("desktop").innerHTML += `<i onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons grey-text text-darken-2 tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
+    document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons grey-text text-darken-2 tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
     console.trace(`Loaded app ${object[property].name}`);
   }
 }
@@ -54,12 +82,14 @@ function refreshScreen(resetapps = true) {//im so smart and cool
     document.getElementById("navbar").innerHTML += `<div class="nav-wrapper grey lighten-1">
               <a id="activeapp" class="brand-logo black-text">Start</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <a class="text-black" id="wifi"></a>
               </ul>
       </div>`
   } else {
     document.getElementById("navbar").innerHTML += `<div class="nav-wrapper grey darken-3">
               <a id="activeapp" class="brand-logo">Start</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <a id="wifi"></a>
               </ul>
       </div>`
   }
@@ -88,10 +118,10 @@ function refreshScreen(resetapps = true) {//im so smart and cool
       icony += 100;
     }
     if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == false) { // the right way(also me just being lazy but uno)
-    document.getElementById("desktop").innerHTML += `<i onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons white-text tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
+    document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons white-text tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
     console.trace(`Loaded app ${object[property].name}`);
     } else {
-    document.getElementById("desktop").innerHTML += `<i onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons grey-text text-darken-2 tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
+    document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons grey-text text-darken-2 tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
     console.trace(`Loaded app ${object[property].name}`);
     }
     lastappwidth = iconx;
@@ -104,50 +134,53 @@ function refreshScreen(resetapps = true) {//im so smart and cool
 
 function launchApp(appname, withfile) {
   console.trace("Launching app " + appname);
+  // blacklsited apps from double launching cuz im lazy
+  let blacklist = [
+    "TaskManager",
+    "Terminal"
+  ]
   // FUNNY TASK MANAGER SEX!!
-  if (document.getElementById(appname) != null) { 
-    console.trace("App already exists! Ending process.");
+  console.trace(blacklist.includes(appname, 0));
+  if (blacklist.includes(appname, 0) == true && document.getElementById(appname + "_1") != null) { 
+    console.trace("App already exists and is on double app blacklist! Ending process.");
     return; 
   }
-  document.getElementById("activeapp").innerHTML = appname;
   var object = JSON.parse(localStorage.getItem('info')).apps;
-  let tasks = localStorage.getObject('info');
+  var tasks = localStorage.getObject('info');
+  var openapps = 0; // only i will no and i will never remember unless i do which will be very funny
+  try {
+    openapps = parseInt(tasks.openapps[object[appname].repo].open) + 1;
+  } catch(err) {
+    openapps = 1;
+  }
   tasks.openapps[object[appname].repo] = {
     "name": object[appname].name,
     "id":  object[appname].repo,
-    "desc": object[appname].repo 
+    "desc": object[appname].repo,
+    "open": openapps
   }
   localStorage.setObject('info', tasks);
   console.trace("Added open task.");
+  //document.getElementById("activeapp").innerHTML = appname + " " + openapps;
+  console.trace("Added to taskbar.")
   // and then refresh
   try {
-  document.getElementById('TaskManagerframe').contentWindow.updateActiveApps();
+  document.getElementById('TaskManagerframe_1').contentWindow.updateActiveApps();
   } catch(e) {
     console.trace("Tried to update Task Manager, but Task Manager is not currently active.");
   }
   // my life is a hell of if statements
-      if (!object[appname].defaultapp) {
-      console.trace("App is not default! Throwing warning");
-      swal({
-        title: "WARNING!",
-        text: "This app is not a base arobicOS app, and has not been scanned for viruses. Are you sure you want to open this?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
           console.trace("Creating app instance");
           let card = document.createElement("div"); // thank you daddy stackoverflow
           // IM SO FUCKING BIG BRAIN WOOOOOO
-          card.id = appname;
+          card.id = appname + "_" + tasks.openapps[object[appname].repo].open;
           card.className = "app";
           card.style = "display:block";
           card.innerHTML = `
-                <div id="${appname}header" class="card ${object[appname].color}" style="width: ${object[appname].cardw}; height: ${object[appname].cardh};">
+                <div id="${appname}header_${tasks.openapps[object[appname].repo].open}" class="card ${object[appname].color}" style="width: ${object[appname].cardw}; height: ${object[appname].cardh};">
               <div class="card-content white-text">
-                <span class="card-title center black-text">${object[appname].name}</span>
-                <iframe id="${object[appname].repo}frame" src="custom/${object[appname].repo}/index.html" scrolling="yes" style="width: ${object[appname].framew}; height: ${object[appname].frameh}; transform: scale(${object[appname].scale}); 
+                <span class="card-title center black-text">${object[appname].name}(${tasks.openapps[object[appname].repo].open})</span>
+                <iframe id="${object[appname].repo}frame_${tasks.openapps[object[appname].repo].open}" src="${(object[appname].defaultapp ? 'apps' : 'custom')}/${object[appname].repo}/index.html" scrolling="yes" style="width: ${object[appname].framew}; height: ${object[appname].frameh}; transform: scale(${object[appname].scale}); 
                 transform-origin: 0 0;"></iframe>
             </div>
           </div>
@@ -157,30 +190,7 @@ function launchApp(appname, withfile) {
             document.getElementById(object[appname].repo + "header").firstElementChild.firstElementChild.innerHTML = object[appname].name + " v" + object[appname].version; // never used firstchild before but hoping this works lolol(im lazy thats why not doing it other way)
           }
           console.trace(document.getElementById(appname));
-          dragElement(document.getElementById(appname));
-        } else {
-          return;
-        }
-      });
-    } else {
-      let card = document.createElement("div");
-      card.id = appname;
-      card.className = "app";
-      card.style = "display:block";
-      card.innerHTML = `
-            <div id="${appname}header" class="card ${object[appname].color}" style="width: ${object[appname].cardw}; height: ${object[appname].cardh};">
-          <div class="card-content white-text">
-            <span class="card-title center black-text">${object[appname].name}</span>
-            <iframe id="${object[appname].repo}frame" src="apps/${object[appname].repo}/index.html" scrolling="yes" style="width: ${object[appname].framew}; height: ${object[appname].frameh}; transform: scale(${object[appname].scale}); 
-            transform-origin: 0 0;"></iframe>
-        </div>
-      </div>
-      </div>`;
-      document.getElementById("apps").appendChild(card);
-      if (JSON.parse(localStorage.getItem('info')).settings.showappversions.status == true) {
-        document.getElementById(object[appname].repo + "header").firstElementChild.firstElementChild.innerHTML = object[appname].name + " v" + object[appname].version; // never used firstchild before but hoping this works lolol(im lazy thats why not doing it other way)
-      }
-      dragElement(document.getElementById(appname));
+          dragElement(document.getElementById(appname) + tasks.openapps[object[appname].repo].open);
       // until i get this bullshit to work this is gonna have to do
       var div = document.getElementById('apps'),
 
@@ -190,13 +200,12 @@ function launchApp(appname, withfile) {
         dragElement(divChildren[i]);
       }
     }
-}
 
 // make elements draggable
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
+  if (document.getElementById(elmnt.id + "header" + document.getElementById("activeapp").innerHTML.split(" ")[1])) {
     // if present, the header is where you move the DIV from:
     document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
   } else {
@@ -256,13 +265,20 @@ function doubleControlEvent() {
 }
 
 function killApp() {
-    console.trace("Killing app");
+    console.trace("Killing app " + usingapp);
+    // FUNNY TASK MANAGER SEX PART 2!!!
+    let tasks = localStorage.getObject('info');
+    delete tasks.openapps[usingapp.split("_")[0]];
+    localStorage.setObject('info', tasks);
+    try {
+      document.getElementById('TaskManagerframe_1').contentWindow.updateActiveApps();
+      } catch(e) {
+        console.trace("Tried to update Task Manager, but Task Manager is not currently active.");
+      }
     var element = document.getElementById(usingapp);
     console.trace(element);
     console.trace(element.parentElement);
     element.parentElement.removeChild(element); // stolen straight from stackoverflow
-    document.getElementById("activeapp").innerHTML = "ArobicOS";
-    document.getElementById(usingapp).style.display = "none";
     document.getElementById("activeapp").innerHTML = "ArobicOS";
   }
 

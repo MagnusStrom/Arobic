@@ -25,12 +25,17 @@
 
       // task manager
 function forceKillApp(app) {
-    var element = document.getElementById(app);
+    let openApps = JSON.parse(localStorage.getItem('info')).openapps;
+    let fuckmedaddy = 0;
+    while (fuckmedaddy < openApps[app].open) {
+    fuckmedaddy++;
+    var element = document.getElementById(app + "_" + fuckmedaddy);
+    //alert(element);
     element.parentElement.removeChild(element); // stolen straight from stackoverflow
     document.getElementById("activeapp").innerHTML = "ArobicOS";
-    document.getElementById('TaskManagerframe').contentWindow.updateActiveApps();
+    document.getElementById('TaskManagerframe_1').contentWindow.updateActiveApps();
   }
-
+}
   // Setup
   function checkLogin() {
     try {
@@ -61,6 +66,7 @@ function forceKillApp(app) {
   }
 
 
+
   // so apps and shit
  // setInterval(function(){ refreshScreen() }, 60 * 1000);
   </script>
@@ -73,14 +79,14 @@ function forceKillApp(app) {
     document.getElementById("navbar").innerHTML += `<div class="nav-wrapper grey lighten-1">
               <a id="activeapp" class="brand-logo black-text">Start</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
+                  <a class="text-black" id="wifi"></a>
               </ul>
       </div>`
   } else {
     document.getElementById("navbar").innerHTML += `<div class="nav-wrapper grey darken-3">
               <a id="activeapp" class="brand-logo">Start</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
-                  <li><a class="modal-trigger" href="#modal2">Help</a></li>
-                  <li class="left"><a id="username" class="modal-trigger" href="#modal1">Loading...</a></li>
+                  <a id="wifi"></a>
               </ul>
       </div>`
   }

@@ -24,17 +24,17 @@
       for (property in openApps) {
     document.getElementById("openApps").innerHTML += `
       <li>
-      <div class="collapsible-header">${openApps[property].name}</div>
+      <div class="collapsible-header">${openApps[property].name}(${openApps[property].open})</div>
       <div class="collapsible-body"><span>${openApps[property].desc}</span><button
           class="btn btn-red" onclick="forceKillApp('${openApps[property].id}')">Kill</button></div>
         </li>`
       }
     }
     function forceKillApp(appname) {
-      let tasks = localStorage.getObject('info');
-        delete tasks.openapps[appname];
-        localStorage.setObject('info', tasks);
       parent.forceKillApp(appname);
+      let tasks = localStorage.getObject('info');
+      delete tasks.openapps[appname];
+      localStorage.setObject('info', tasks);
     }
   </script>
 </head>
