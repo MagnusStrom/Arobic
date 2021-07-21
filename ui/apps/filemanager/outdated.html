@@ -16,31 +16,31 @@
   />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    function loadFiles() {
-      var files = parent.findFiles(window.frameElement.id);
+  // Setup
+  function loadFiles() {
+  if (typeof(Storage) != "undefined") {
+    let object = JSON.parse(localStorage.getItem('info')).files;
+    let iconx = 370;
+    let icony = 90;
+    for (const property in object) {
+    document.getElementById("files").innerHTML += `<a onclick="loadFile('${object[property].filepath}')" class="collection-item">${object[property].filepath}</a>`
+    //console.trace(object[property])
     }
-
-    function loadFile(file) {
-      console.log("Loading file " + file)
-      if (file.endsWith(".txt")) {
-        location.replace("opentxt.html?file=" + file)
-      }
-    }
-
-    function receive(event) {
-      console.log("Received Files: " + event.data);
-      event.data.forEach(funnyFunc);
-      function funnyFunc(index, item) {
-        document.getElementById("files").innerHTML += `<a onclick="loadFile('${index}')" class="collection-item">${index}</a>`;
-      };
+  } else {
+    alert("Error! Your browser does not support localStorage. This OS will not work as mentioned.")
   }
-window.addEventListener('message', receive);
+}
+
+
+function loadFile(file) {
+  location.replace("openfile.html?file=" + file)
+}
   </script>
 </head>
 <body onload="loadFiles()">
+  <a href="test.html">Click to open test</a>
     <div id="files" class="collection">
-
-    </div>
+      </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

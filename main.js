@@ -10,7 +10,8 @@ function createWindow () {
     width: 1920,//1920 x 1080 
     height: 1080,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false
     },
     show: false,
     autoHideMenuBar: true, 

@@ -23,6 +23,38 @@
     location.reload();
   }
 
+  function findFiles(framename) {
+    fs.readdir('./files', (err, files) => {
+        console.log(files)
+        var targetWindow = document.getElementById(framename);
+        targetWindow.contentWindow.postMessage(files, "*");
+    })
+    // Sync
+    fs.readdirSync('./files');
+  }
+
+  function getFile(file, framename) {
+    console.log("Getting file " + file)
+    fs.readFile('./files/' + file, 'utf8' , (err, data) => {
+    if (err) {
+      console.error(err)
+      return;
+    }
+    console.log("Got file with data " + data)
+    var targetWindow = document.getElementById(framename);
+    targetWindow.contentWindow.postMessage(data, "*");
+  })
+  }
+
+
+
+
+
+
+
+
+
+
       // task manager
 function forceKillApp(app) {
     let openApps = JSON.parse(localStorage.getItem('info')).openapps;
@@ -197,7 +229,7 @@ function forceKillApp(app) {
     <a href="#!" class="modal-close waves-effect waves-green btn-flat">Done</a>
   </div>
 </div><!--onclick="launchApp('TaskManager')"--><!---->
-  <script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"">
     //jquery time
     $(document).ready(function(){
       $('.tooltipped').tooltip();

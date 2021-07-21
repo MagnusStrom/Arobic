@@ -207,7 +207,7 @@ function exitView() {
     <!-- Empty div to put the count in -->
     <div id="view_count">
     </div>
-    <button class="button" onclick="saveFile()">Save</button>
+    <!--<button class="button" onclick="saveFile()">Save</button>-->
     <button class="button" onclick="exitView()">Back</button>
     <!-- Empty div to put encouraging remarks when author hits a new milestone-->
     <div id="marks">
@@ -223,9 +223,13 @@ function exitView() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const file = urlParams.get('file');
-    let pog = localStorage.getObject('info').files[file];
-    document.getElementById("my_text").value = pog.content;
+    parent.getFile(file, window.frameElement.id)
 
+    function receive(event) {
+      console.log("Received Files: " + event.data);
+      document.getElementById("my_text").value = event.data;
+  }
+  window.addEventListener('message', receive);
     </script>
 </body>
 </html>
