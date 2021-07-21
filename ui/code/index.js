@@ -187,7 +187,7 @@ function launchApp(appname, withfile) {
           </div>`;
           document.getElementById("apps").appendChild(card);
           if (localStorage.getObject('info').settings.showappversions.status == true) {
-            document.getElementById(object[appname].repo + "header").firstElementChild.firstElementChild.innerHTML = object[appname].name + " v" + object[appname].version; // never used firstchild before but hoping this works lolol(im lazy thats why not doing it other way)
+            document.getElementById(object[appname].repo + "header_" + tasks.openapps[object[appname].repo].open).firstElementChild.firstElementChild.innerHTML = object[appname].name + " v" + object[appname].version; // never used firstchild before but hoping this works lolol(im lazy thats why not doing it other way)
           }
           console.trace(document.getElementById(appname));
           dragElement(document.getElementById(appname) + tasks.openapps[object[appname].repo].open);
