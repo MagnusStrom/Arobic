@@ -38,6 +38,7 @@ function forceKillApp(app) {
 }
   // Setup
   function checkLogin() {
+    getFiles()
     try {
   if (typeof(Storage) !== "undefined") {
     if (JSON.parse(localStorage.getItem('info')).username == null) {
@@ -98,6 +99,11 @@ function forceKillApp(app) {
       <h4>ArobicOS</h4>
       <p>Build 0.1.1</p>
       <p>Latest update: Terminal</p>
+      <h5>Build stats:</h5> <!-- stolen from electron tutorial -->
+      <p>
+      Node.js version: <span id="node-version"></span><br>
+      Chromium version: <span id="chrome-version"></span><br>
+      Electron version: <span id="electron-version"></span></p>
       <button class="btn btn-large btn-green" onclick="reset()">Reset</button>
     </div>
     <div class="modal-footer grey darken-1">
@@ -201,5 +207,6 @@ function forceKillApp(app) {
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="./code/index.js"></script>
+  <script src="./code/backend.js"></script>
 </body>
 </html>

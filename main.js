@@ -10,7 +10,7 @@ function createWindow () {
     width: 1920,//1920 x 1080 
     height: 1080,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      nodeIntegration: true
     },
     show: false,
     autoHideMenuBar: true, 
@@ -22,7 +22,7 @@ function createWindow () {
 
   // and load the index.html of the app.
 
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

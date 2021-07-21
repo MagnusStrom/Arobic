@@ -153,7 +153,8 @@ function launchApp(appname, withfile) {
   } catch(err) {
     openapps = 1;
   }
-  tasks.openapps[object[appname].repo] = {
+
+  tasks.openapps[object[appname].repo] = { 
     "name": object[appname].name,
     "id":  object[appname].repo,
     "desc": object[appname].repo,
@@ -268,7 +269,11 @@ function killApp() {
     console.trace("Killing app " + usingapp);
     // FUNNY TASK MANAGER SEX PART 2!!!
     let tasks = localStorage.getObject('info');
-    delete tasks.openapps[usingapp.split("_")[0]];
+   //delete tasks.openapps[usingapp.split("_")[0]];
+    tasks.openapps[usingapp.split("_")[0]].open = parseInt(tasks.openapps[usingapp.split("_")[0]].open - 1)
+    if (tasks.openapps[usingapp.split("_")[0]].open == 0) {
+      delete tasks.openapps[usingapp.split("_")[0]]
+    }
     localStorage.setObject('info', tasks);
     try {
       document.getElementById('TaskManagerframe_1').contentWindow.updateActiveApps();
@@ -280,6 +285,7 @@ function killApp() {
     console.trace(element.parentElement);
     element.parentElement.removeChild(element); // stolen straight from stackoverflow
     document.getElementById("activeapp").innerHTML = "ArobicOS";
+    
   }
 
 // Fullscreen Apps
