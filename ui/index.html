@@ -72,17 +72,15 @@ function forceKillApp(app) {
   if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == true) {
     document.getElementById("navbar").innerHTML += `<div class="nav-wrapper grey lighten-1">
               <a id="activeapp" class="brand-logo black-text">Start</a>
-              <ul id="nav-mobile" class="right">
-                <li><a class="modal-trigger" href="#modal2">Help</a></li>
-                  <li class="left"><a id="username" class="modal-trigger" href="#modal1">` + JSON.parse(localStorage.getItem('info')).username + `</a></li>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
               </ul>
       </div>`
   } else {
     document.getElementById("navbar").innerHTML += `<div class="nav-wrapper grey darken-3">
               <a id="activeapp" class="brand-logo">Start</a>
-              <ul id="nav-mobile" class="right">
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
                   <li><a class="modal-trigger" href="#modal2">Help</a></li>
-                  <li class="left"><a id="username" class="modal-trigger" href="#modal1">` + JSON.parse(localStorage.getItem('info')).username + `</a></li>
+                  <li class="left"><a id="username" class="modal-trigger" href="#modal1">Loading...</a></li>
               </ul>
       </div>`
   }
