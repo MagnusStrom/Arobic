@@ -1,15 +1,19 @@
 // preload.js
+const fs = require('fs');
 
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', () => {
-    const replaceText = (selector, text) => {
-      const element = document.getElementById(selector)
-      if (element) element.innerText = text
+    const element = document.getElementById("files");
+    if (element) {
+      element.innerHTML = "hi";
+      // Callback
+      fs.readdir('~/', (err, files) => {
+        console.log(files)
+        element.innerHTML = "hi";
+      })
+      // Sync
+      fs.readdirSync('~/')
     }
-  
-    for (const dependency of ['chrome', 'node', 'electron']) {
-      replaceText(`${dependency}-version`, process.versions[dependency])
-    }
-  })
+  });
   
