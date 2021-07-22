@@ -52,6 +52,7 @@
     document.getElementById('TaskManagerframe_1').contentWindow.updateActiveApps();
   }
   openApps[app].open = 0;
+  localStorage.setItem('info', JSON.stringify(openApps));
 }
   // Setup
   function checkLogin() {
