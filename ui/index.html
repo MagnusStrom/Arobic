@@ -82,7 +82,7 @@
   }
 } catch(err) {
   console.log(err)
-  reload();
+  //location.replace('setup.html');
 }
 }
 
@@ -112,6 +112,7 @@
     <nav id="navbar">
     </nav>
 <script>// THIS SUCKS BUT IT THE ONLY THING I COULD GET TO WORK SO
+getInfo();
   if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == true) {
     document.getElementById("navbar").innerHTML += `<div class="nav-wrapper grey lighten-1">
               <a id="activeapp" class="brand-logo black-text">Start</a>
@@ -165,8 +166,7 @@
   .then((willDelete) => {
     if (willDelete) {
       localStorage.setItem('info', '');
-      reset()
-      location.reload();
+      location.replace('setup.html');
     }
   });
 }
