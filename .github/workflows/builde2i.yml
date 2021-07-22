@@ -13,7 +13,7 @@ jobs:
     - run: npm install --save-dev electron
     - run: npm install electron-packager -g
     - run: npm install --save-dev electron-builder
-    - run: git clone https://github.com/MagnusStrom/electron-iso-packager.git
+    - run: git clone https://github.com/MagnusStrom/arobicos-to-iso.git
     - run: sudo electron-iso-packager/electron-iso-packager.sh ./ Arobic
     - name: Publish Artifact
       uses: actions/upload-artifact@v2
