@@ -1,0 +1,22 @@
+name: softbuild
+on: []
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: ls
+    - run: sudo apt install coreutils zutils cpio genisoimage
+    - run: npm install --save-dev electron
+    - run: npm install electron-packager -g
+    - run: npm install --save-dev electron-builder
+    - run: git clone https://github.com/MagnusStrom/arobicos-to-iso.git
+    - run: sudo arobicos-to-iso/electron-iso-packager.sh ./ Arobic
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Arobic
+        path: /home/runner/work/Arobic/Arobic/Arobic.iso

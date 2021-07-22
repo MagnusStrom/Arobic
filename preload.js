@@ -34,6 +34,16 @@ window.reset = function() {
   });
 }
 
+
+window.debug = function() {
+  fs.readdir('./', (err, files) => {
+      console.log("SENDING " + files)
+      localStorage.setItem('filedebug', files);
+  })
+  // Sync
+  fs.readdirSync('./files');
+}
+
 window.getFileList = function() {
   fs.readdir('./files', (err, files) => {
       console.log("SENDING " + files)

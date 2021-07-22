@@ -14,9 +14,9 @@ function createWindow () {
       contextIsolation: false,
       preload: path.join(__dirname, 'preload.js')
     },
-    show: false,
-    autoHideMenuBar: true, 
-    frame: false
+    show: false
+   // autoHideMenuBar: true, 
+    //frame: false
   });
   mainWindow.loadFile('ui/index.html');
   mainWindow.maximize();

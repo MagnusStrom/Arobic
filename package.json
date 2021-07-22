@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/MagnusStrom/ArobicOS#readme",
   "devDependencies": {
-    "electron": "^13.1.7"
+    "electron": "^13.1.7",
+    "electron-packager": "^15.3.0"
   },
   "dependencies": {
     "electron-builder": "^22.11.7"
