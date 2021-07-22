@@ -12,4 +12,4 @@ The OS is all coded in HTML/CSS/JS, but under the hood it uses https://distro.ib
 
 
 
-ammount of times i cheese github actions: 2
+ammount of times i cheese github actions: 3
