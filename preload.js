@@ -16,15 +16,13 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 window.save = function(userdata) {
-  fs.readFile('./files/savedata.json', 'utf8', function (err, data) {
-var json = JSON.parse(data); // Read the data
-var info = json.info; // Get all users
-info = userdata;
-info = JSON.stringify(info);
-fs.writeFile('./files/savedata.json', info, (err) => {
-  location.replace("index.html")
-});
-});
+  var json = { "info": {} }
+  var info = json.info; // Get all users 
+  info = userdata;
+  info = JSON.stringify(info);
+  fs.writeFile('./files/savedata.json', info, (err) => {
+    location.replace("index.html")
+  });
 }
 
 window.reset = function() {
