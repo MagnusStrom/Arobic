@@ -181,18 +181,33 @@ function saveFile() {
 // go back to main(put a warning with sexy sweetalert)
 
 function exitView() {
-  swal({
-  title: "Save",
-  text: "Did you remember to save? If you don't save, you will lose all changes!",
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
+  swal("Would you like to save?", {
+  buttons: {
+    cancel: "Go back",
+    save: {
+      text: "Yes, save and close",
+      value: "save",
+    },
+    close: {
+      text: "Close without saving",
+      value: "close",
+    },
+  },
 })
-.then((willDelete) => {
-  if (willDelete) {
-    location.replace("index.html")
-  } else {
-    return;
+.then((value) => {
+  switch (value) {
+    case "save":
+      console.log("SAVING");
+      parent.saveTxtFile(file, document.getElementById("my_text").value);
+      parent.forceKillApp('ArobicViewer');
+      break;
+ 
+    case "close":
+      location.replace("index.html");
+      break;
+ 
+    default:
+      
   }
 });
 }

@@ -22,6 +22,7 @@
       background-repeat: repeat;
     }
   </style>
+
 </head>
 <body>
   <div class="row" id="row">
@@ -127,10 +128,10 @@
             "version": "0.0.2",
             "icon": "folder",
             "color": "grey lighten-3",
-            "cardw": "400px",
-            "cardh": "700px",
-            "framew": "300px",
-            "frameh": "550px",
+            "cardw": "300px",
+            "cardh": "500px",
+            "framew": "200px",
+            "frameh": "450px",
             "scale": "1.1",
             "defaultapp": true,
             "supportsfullscreen": false
@@ -159,6 +160,20 @@
             "cardh": "400px",
             "framew": "400px",
             "frameh": "350px",
+            "scale": "0.8",
+            "defaultapp": true,
+            "supportsfullscreen": false
+          },
+          "ArobicViewer": {
+            "repo": "ArobicViewer",
+            "name": "ArobicViewer",
+            "version": "0.0.1",
+            "icon": "visibility",
+            "color": "grey lighten-3",
+            "cardw": "400px",
+            "cardh": "560px",
+            "framew": "400px",
+            "frameh": "530px",
             "scale": "0.8",
             "defaultapp": true,
             "supportsfullscreen": false
@@ -201,19 +216,21 @@
         "openapps": {//i hate my life
         }
       }
-      // THIS IS KINDA BAD BUT I CAN FIX IT LATER SO
+      
       for (const property in userdata.settings) {
         if (document.getElementById(userdata.settings[property].dataname).checked == true) {
-          userdata.settings[property].status = true; // WHO WANTS THIS
+          userdata.settings[property].status = true; 
         }
      }
-      localStorage.setItem('info', JSON.stringify(userdata));
-      location.replace("index.html")
+     save(userdata);
+
+      //localStorage.setItem('info', JSON.stringify(userdata));
     }
   $(document).ready(function(){
     //init jquery shit here
   });
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./preload.js"></script>
 </body>
 </html>

@@ -57,11 +57,18 @@ $(window).resize(function() {
   let iconx = 0;
   let icony = 90;
   for (const property in object) {
-  iconx = iconx + 100;
+    var blacklisted = [
+      "ArobicViewer"
+    ]
+  if (!blacklisted.includes(object[property].repo)) {
+    iconx = iconx + 100;
+  }
   if (iconx > window.innerWidth - 100) {
     iconx = 0;
     icony += 100;
   }
+
+  if (!blacklisted.includes(object[property].repo)) {
   if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == false) { // the right way(also me just being lazy but uno)
     document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons white-text tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
     console.trace(`Loaded app ${object[property].name}`);
@@ -69,6 +76,7 @@ $(window).resize(function() {
     document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons grey-text text-darken-2 tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
     console.trace(`Loaded app ${object[property].name}`);
   }
+}
 }
 // Restart tooltips
 $('.tooltipped').tooltip();
@@ -117,14 +125,21 @@ function refreshScreen(resetapps = true) {//im so smart and cool
       iconx = 0;
       icony += 100;
     }
-    if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == false) { // the right way(also me just being lazy but uno)
-    document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons white-text tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
-    console.trace(`Loaded app ${object[property].name}`);
-    } else {
-    document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons grey-text text-darken-2 tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
-    console.trace(`Loaded app ${object[property].name}`);
+
+    var blacklisted = [
+      "ArobicViewer"
+    ]
+
+    if (!blacklisted.includes(object[property].repo)) {
+      if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == false) { // the right way(also me just being lazy but uno)
+      document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons white-text tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
+      console.trace(`Loaded app ${object[property].name}`);
+      } else {
+      document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons grey-text text-darken-2 tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
+      console.trace(`Loaded app ${object[property].name}`);
+      }
+      lastappwidth = iconx;
     }
-    lastappwidth = iconx;
   }
   $('.tooltipped').tooltip();
  // M.toast({html: "Refreshed screen"}); //this runs too much to do lolol
@@ -132,8 +147,17 @@ function refreshScreen(resetapps = true) {//im so smart and cool
 
 //"Launch" Apps
 
-function launchApp(appname, withfile) {
+function launchApp(appname, directto = "") {
   console.trace("Launching app " + appname);
+  var directing;
+
+  if (directto == "") {
+    console.trace("No page set to direct to");
+    directing = false;
+  } else {
+    console.trace("Directing to " + directto);
+    directing = true;
+  }
   // blacklsited apps from double launching cuz im lazy
   let blacklist = [
     "TaskManager",
@@ -146,8 +170,9 @@ function launchApp(appname, withfile) {
     return; 
   }
   var object = JSON.parse(localStorage.getItem('info')).apps;
+ // console.trace(object);
   var tasks = localStorage.getObject('info');
-  var openapps = 0; // only i will no and i will never remember unless i do which will be very funny
+  var openapps = 0; // only i will no and i will never remember unless i do which will be very funny -- update: i forgot
   try {
     openapps = parseInt(tasks.openapps[object[appname].repo].open) + 1;
   } catch(err) {
@@ -181,7 +206,7 @@ function launchApp(appname, withfile) {
                 <div id="${appname}header_${tasks.openapps[object[appname].repo].open}" class="card ${object[appname].color}" style="width: ${object[appname].cardw}; height: ${object[appname].cardh};">
               <div class="card-content white-text">
                 <span class="card-title center black-text">${object[appname].name}(${tasks.openapps[object[appname].repo].open})</span>
-                <iframe id="${object[appname].repo}frame_${tasks.openapps[object[appname].repo].open}" src="${(object[appname].defaultapp ? 'apps' : 'custom')}/${object[appname].repo}/index.html" scrolling="yes" style="width: ${object[appname].framew}; height: ${object[appname].frameh}; transform: scale(${object[appname].scale}); 
+                <iframe id="${object[appname].repo}frame_${tasks.openapps[object[appname].repo].open}" src="${(object[appname].defaultapp ? 'apps' : 'custom')}/${object[appname].repo}/${directing ? directto : 'index.html'}" scrolling="yes" style="width: ${object[appname].framew}; height: ${object[appname].frameh}; transform: scale(${object[appname].scale}); 
                 transform-origin: 0 0;"></iframe>
             </div>
           </div>

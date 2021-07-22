@@ -8,14 +8,14 @@
   />
   <link
     rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-  />
-  <link
-    rel="stylesheet"
     href="https://fonts.googleapis.com/icon?family=Material+Icons"
   />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+  />
   <link rel="stylesheet" href="style.css">
   <script>
 
@@ -23,40 +23,24 @@
     location.reload();
   }
 
+  function saveTxtFile(file, info) {
+    saveFile(file, 'txt', info);
+  }
   function findFiles(framename) {
-    fs.readdir('./files', (err, files) => {
-        console.log(files)
-        var targetWindow = document.getElementById(framename);
-        targetWindow.contentWindow.postMessage(files, "*");
-    })
-    // Sync
-    fs.readdirSync('./files');
+      getFileList();
+      var targetWindow = document.getElementById(framename);
+      targetWindow.contentWindow.postMessage(localStorage.getItem('filelist'), "*");
   }
 
   function getFile(file, framename) {
     console.log("Getting file " + file)
-    fs.readFile('./files/' + file, 'utf8' , (err, data) => {
-    if (err) {
-      console.error(err)
-      return;
-    }
-    console.log("Got file with data " + data)
+    getFileData(file);
     var targetWindow = document.getElementById(framename);
-    targetWindow.contentWindow.postMessage(data, "*");
-  })
+    targetWindow.contentWindow.postMessage(localStorage.getItem(file), "*");
   }
-
-
-
-
-
-
-
-
-
-
+  
       // task manager
-function forceKillApp(app) {
+  function forceKillApp(app) {
     let openApps = JSON.parse(localStorage.getItem('info')).openapps;
     let fuckmedaddy = 0;
     while (fuckmedaddy < openApps[app].open) {
@@ -67,14 +51,16 @@ function forceKillApp(app) {
     document.getElementById("activeapp").innerHTML = "ArobicOS";
     document.getElementById('TaskManagerframe_1').contentWindow.updateActiveApps();
   }
+  openApps[app].open = 0;
 }
   // Setup
   function checkLogin() {
-    getFiles()
+    getInfo();
     try {
   if (typeof(Storage) !== "undefined") {
     if (JSON.parse(localStorage.getItem('info')).username == null) {
-      location.replace("setup.html")
+      console.log("no user");
+     location.replace("setup.html")
     } else {
       M.toast({html: 'Welcome back, ' + JSON.parse(localStorage.getItem('info')).username + "!"});
     }
@@ -94,15 +80,32 @@ function forceKillApp(app) {
     document.getElementById("body").style = "background-image: url('images/defaultbg.png');background-repeat: repeat;";
   }
 } catch(err) {
+  console.log(err)
   location.replace("setup.html");
 }
-  }
+}
 
 
+
+ document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems);
+    var elems2 = document.querySelectorAll('.modal');
+    var instances2 = M.Modal.init(elems2);
+  });
 
   // so apps and shit
  // setInterval(function(){ refreshScreen() }, 60 * 1000);
   </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js">
+      //jquery time
+      $(document).ready(function(){
+        $('.tooltipped').tooltip();
+    //    $('.modal').modal();
+       // $('.fixed-action-btn').floatingActionButton();
+    });
+  
+    </script>
 </head>
 <body onload="checkLogin()" id="body">
     <nav id="navbar">
@@ -136,6 +139,12 @@ function forceKillApp(app) {
       Node.js version: <span id="node-version"></span><br>
       Chromium version: <span id="chrome-version"></span><br>
       Electron version: <span id="electron-version"></span></p>
+
+      <script>
+      for (const dependency of ['chrome', 'node', 'electron']) {
+        document.getElementById(`${dependency}-version`).innerText = process.versions[dependency];
+      }
+      </script>
       <button class="btn btn-large btn-green" onclick="reset()">Reset</button>
     </div>
     <div class="modal-footer grey darken-1">
@@ -155,6 +164,7 @@ function forceKillApp(app) {
   .then((willDelete) => {
     if (willDelete) {
       localStorage.setItem('info', '');
+      reset()
       location.reload();
     }
   });
@@ -229,15 +239,10 @@ function forceKillApp(app) {
     <a href="#!" class="modal-close waves-effect waves-green btn-flat">Done</a>
   </div>
 </div><!--onclick="launchApp('TaskManager')"--><!---->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"">
-    //jquery time
-    $(document).ready(function(){
-      $('.tooltipped').tooltip();
-      $('.modal').modal();
-      $('.fixed-action-btn').floatingActionButton();
-  });
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!-- src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" -->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="./code/index.js"></script>
   <script src="./code/backend.js"></script>
 </body>
