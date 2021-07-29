@@ -20,6 +20,19 @@ window.save = function(userdata) {
   var info = json.info; // Get all users 
   info = userdata;
   info = JSON.stringify(info);
+  // stolen from tutorial
+
+  var folderName = './files'
+
+  try {
+    if (!fs.existsSync(folderName)) {
+      console.log("[PRELOAD] Making file");
+      fs.mkdirSync(folderName);
+    }
+  } catch (err) {
+    console.error(err)
+  }
+
   fs.writeFile('./files/savedata.json', info, (err) => {
     location.replace("index.html")
   });
@@ -74,7 +87,7 @@ window.saveFile = function(file, type, data) {
 
 
 window.getInfo = function() {
-  //console.log("useinfo was requested");
+  console.log("userinfo was requested");
   fs.readFile('./files/savedata.json', 'utf8', function (err, data) {
     var info = JSON.parse(data); // Read the data
     console.log("Recived " + info)
