@@ -105,6 +105,29 @@ window.saveFile = function(file, type, data) {
   }
 }
 
+window.installApp = function(info) {
+  let pog = JSON.parse(fs.readFileSync(filepath + '/savedata.json', 'utf8')); // utf8
+  let pog2 = info[1];
+  pog.apps[pog2] = {
+    "repo": info[0],
+    "name": info[1],
+    "version": info[2],
+    "icon": info[3],
+    "color": info[4],
+    "cardw": info[5],
+    "cardh": info[6],
+    "framew": info[7],
+    "frameh": info[8],
+    "scale": info[9],
+    "defaultapp": false,
+    "supportsfullscreen": info[10],
+    "desc": info[11]
+  }
+  fs.writeFile(filepath + '/savedata.json', JSON.stringify(pog), (err) => {
+    return;
+  });
+}
+
 window.saveSetting = function(setting) {
   var data = fs.readFileSync(filepath + '/savedata.json', 'utf8'); // utf8
   console.log(data);

@@ -32,6 +32,11 @@
     saveSetting(name);
   }
 
+  function addApp(info) {
+    installApp(info); // all this code is asscheeks but ig it makes things mainstream?
+    refreshScreen(false);
+
+  }
   function findFiles(framename) {
       getFileList().then(function() {
         var targetWindow = document.getElementById(framename);
