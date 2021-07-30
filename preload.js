@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
   console.log("LOADED");
   console.log("OPERATING SYSTEM: " + os.platform());
   if (os.platform() == "darwin") { // FOR DEBUGGING PURPOSES!
-    filepath = "files";
+    filepath = "/Users/amonwarner-fricke/files";
   } else {
     filepath = "./files";
   }
@@ -41,7 +41,9 @@ window.save = function(userdata) {
   }
 
   fs.writeFile(filepath + '/savedata.json', info, (err) => {
-    location.replace("index.html")
+    fs.writeFile(filepath + '/test.txt', "This was written using the preload script. This is for testing purposes! :)", (err) => {
+      location.replace("index.html")
+    });
   });
 }
 
@@ -71,7 +73,7 @@ window.getFileList = function() {
   fs.readdirSync(filepath);
 }
 
-window.getFileData = function(file) {
+window.getFileData = async function(file) {
   console.log("Getting file " + file)
   fs.readFile(filepath + '/' + file, 'utf8' , (err, data) => {
   if (err) {
@@ -81,7 +83,17 @@ window.getFileData = function(file) {
   console.log("Got file with data " + data)
   // legit monkey code but im tired
   localStorage.setItem(file, data);
+  return;
 })
+}
+
+window.getFilePathData = async function(file) { // what a lazy name
+  console.log("Getting file path" + file)
+  let path = filepath + '/' + file;
+  console.log("Got file path " + path);
+  // legit monkey code but im tired
+  localStorage.setItem(file + 'path', path);
+  return;
 }
 
 window.saveFile = function(file, type, data) {

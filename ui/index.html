@@ -34,11 +34,23 @@
 
   function getFile(file, framename) {
     console.log("Getting file " + file)
-    getFileData(file);
-    var targetWindow = document.getElementById(framename);
-    targetWindow.contentWindow.postMessage(localStorage.getItem(file), "*");
+    getFileData(file).then(function() {
+      var targetWindow = document.getElementById(framename);
+      targetWindow.contentWindow.postMessage(localStorage.getItem(file), "*");
+    });
+  }
+
+  function getFilePath(file, framename) {
+    console.log("Getting file path" + file)
+    getFilePathData(file).then(function() {
+      var targetWindow = document.getElementById(framename);
+      targetWindow.contentWindow.postMessage(localStorage.getItem(file + 'path'), "*");
+    });
   }
   
+  function notification(message) {
+    M.toast({html: message});
+  }
       // task manager
   function forceKillApp(app) {
     let openApps = JSON.parse(localStorage.getItem('info')).openapps;
@@ -134,8 +146,7 @@ getInfo();
   <div id="modal1" class="modal">
     <div class="modal-content grey">
       <h4>ArobicOS</h4>
-      <p>Build 0.1.1</p>
-      <p>Latest update: Terminal</p>
+      <p>Build 0.1.3</p>
       <h5>Build stats:</h5> <!-- stolen from electron tutorial -->
       <p>
       Node.js version: <span id="node-version"></span><br>

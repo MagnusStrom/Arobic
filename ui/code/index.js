@@ -58,7 +58,8 @@ $(window).resize(function() {
   let icony = 90;
   for (const property in object) {
     var blacklisted = [
-      "ArobicViewer"
+      "ArobicViewer",
+      "ArobicMedia"
     ]
   if (!blacklisted.includes(object[property].repo)) {
     iconx = iconx + 100;
@@ -127,7 +128,8 @@ function refreshScreen(resetapps = true) {//im so smart and cool
     }
 
     var blacklisted = [
-      "ArobicViewer"
+      "ArobicViewer",
+      "ArobicMedia"
     ]
 
     if (!blacklisted.includes(object[property].repo)) {
@@ -281,6 +283,7 @@ var timesCtrlClicked = 0;
 document.addEventListener('keydown', doubleControlEvent, true)
 
 function doubleControlEvent() {
+  console.log("Q Pressed UWU");
   if (event.keyCode == 81) {
     timesCtrlClicked++;
     if (timesCtrlClicked >= 2) {

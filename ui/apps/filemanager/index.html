@@ -25,6 +25,18 @@
       if (file.endsWith(".txt")) {
         parent.launchApp('ArobicViewer', 'opentxt.html?file=' + file);
       }
+      if (file.endsWith(".json")) {
+        parent.notification("A better json viewer is coming soon.");
+        parent.launchApp('ArobicViewer', 'opentxt.html?file=' + file);
+      }
+      if (file.endsWith(".mp4")) {
+        parent.notification("This viewer is in beta.");
+        parent.launchApp('ArobicMedia', 'openmp4.html?file=' + file);
+      }
+      if (file.endsWith(".ogg")) {
+        parent.notification("This viewer is in beta.");
+        parent.launchApp('ArobicMedia', 'openogg.html?file=' + file);
+      }
     }
 
     function receive(event) {

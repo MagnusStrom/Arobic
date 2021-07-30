@@ -234,6 +234,7 @@ function exitView() {
       <button id = "themechange" onclick="changecolor()">Get New Theme</button>
     </div>
     <script>
+    document.getElementById("my_text").value = "Loading...";
     // load
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -243,6 +244,10 @@ function exitView() {
     function receive(event) {
       console.log("Received Files: " + event.data);
       document.getElementById("my_text").value = event.data;
+      if (event.data == "") {
+        console.log("no data found? need confirmation on this");
+       // location.reload(); // this should fix the issue!
+      }
   }
   window.addEventListener('message', receive);
     </script>
