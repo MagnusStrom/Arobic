@@ -1,8 +1,16 @@
 // preload.js
 var fs = require('fs'); 
+var os = require('os');
+var filepath = "NONE";
 
 window.addEventListener('DOMContentLoaded', () => {
   console.log("LOADED");
+  console.log("OPERATING SYSTEM: " + os.platform());
+  if (os.platform() == "darwin") { // FOR DEBUGGING PURPOSES!
+    filepath = "files";
+  } else {
+    filepath = "./files";
+  }
   const replaceText = (selector, text) => {
     const element = document.getElementById(selector)
     if (element) element.innerText = text;
@@ -26,21 +34,20 @@ window.save = function(userdata) {
 
   try {
     if (!fs.existsSync(folderName)) {
-      console.log("[PRELOAD] Making file");
       fs.mkdirSync(folderName);
     }
   } catch (err) {
     console.error(err)
   }
 
-  fs.writeFile('./files/savedata.json', info, (err) => {
+  fs.writeFile(filepath + '/savedata.json', info, (err) => {
     location.replace("index.html")
   });
 }
 
 window.reset = function() {
   info = {};
-  fs.writeFile('./files/savedata.json', info, (err) => {
+  fs.writeFile(filepath + '/savedata.json', info, (err) => {
     location.replace("index.html")
   });
 }
@@ -52,21 +59,21 @@ window.debug = function() {
       localStorage.setItem('filedebug', files);
   })
   // Sync
-  fs.readdirSync('./files');
+  fs.readdirSync(filepath + '/');
 }
 
 window.getFileList = function() {
-  fs.readdir('./files', (err, files) => {
+  fs.readdir(filepath, (err, files) => {
       console.log("SENDING " + files)
       localStorage.setItem('filelist', files);
   })
   // Sync
-  fs.readdirSync('./files');
+  fs.readdirSync(filepath);
 }
 
 window.getFileData = function(file) {
   console.log("Getting file " + file)
-  fs.readFile('./files/' + file, 'utf8' , (err, data) => {
+  fs.readFile(filepath + '/' + file, 'utf8' , (err, data) => {
   if (err) {
     console.error(err)
     return;
@@ -79,7 +86,7 @@ window.getFileData = function(file) {
 
 window.saveFile = function(file, type, data) {
   if (type == "txt") {
-    fs.writeFile('./files/' + file, data, (err) => {
+    fs.writeFile(filepath + '/' + file, data, (err) => {
       return;
     });
   }
@@ -88,7 +95,7 @@ window.saveFile = function(file, type, data) {
 
 window.getInfo = function() {
   console.log("userinfo was requested");
-  fs.readFile('./files/savedata.json', 'utf8', function (err, data) {
+  fs.readFile(filepath + '/savedata.json', 'utf8', function (err, data) {
     var info = JSON.parse(data); // Read the data
     console.log("Recived " + info)
     // Set data locally for security reasons(and the fact that i am lazy)
