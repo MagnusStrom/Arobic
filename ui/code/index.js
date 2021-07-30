@@ -374,7 +374,7 @@ function closeFullScreen() {
 }
 
 
-//refreshScreen(); // should make life slightly easier
+refreshScreen(); // should make life slightly easier
 
 // Load all 3rd party apps
 /*
