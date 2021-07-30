@@ -11,9 +11,17 @@ Storage.prototype.getObject = function(key) {
 }
 
 // hardcoding incase i didint earlier
+try {
 var tasks = localStorage.getObject('info');
-tasks.openapps = {};
-localStorage.setObject('info', tasks);
+} catch(err) {
+  // just guessin atp
+  // nvm lol
+  // i wonder if ill get this joke
+  // i dont remember it :cry:
+  if (localStorage.getItem('info') == "NONE") {
+    console.log("Data is null! Skipping");
+  }
+}
 
 // Logging things to terminal
 console.trace = function(msg) {
@@ -86,6 +94,12 @@ $('.tooltipped').tooltip();
 // cancer
 function refreshScreen(resetapps = true) {//im so smart and cool
   console.trace("Refreshing screen");
+  getInfo().then(function() {
+    // im so tired and this code is shit
+    if (localStorage.getItem('info') == null) {
+      refreshScreen();
+      return;
+    }
   document.getElementById("navbar").innerHTML = '';
   if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == true) {
     document.getElementById("navbar").innerHTML += `<div class="nav-wrapper grey lighten-1">
@@ -144,6 +158,7 @@ function refreshScreen(resetapps = true) {//im so smart and cool
     }
   }
   $('.tooltipped').tooltip();
+});
  // M.toast({html: "Refreshed screen"}); //this runs too much to do lolol
 }
 
@@ -359,7 +374,7 @@ function closeFullScreen() {
 }
 
 
-refreshScreen(); // should make life slightly easier
+//refreshScreen(); // should make life slightly easier
 
 // Load all 3rd party apps
 /*

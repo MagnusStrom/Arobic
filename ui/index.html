@@ -18,6 +18,7 @@
   />
   <link rel="stylesheet" href="style.css">
   <script>
+  window.localStorage.clear();
 
   function reload() {
     location.reload();
@@ -27,9 +28,10 @@
     saveFile(file, 'txt', info);
   }
   function findFiles(framename) {
-      getFileList();
-      var targetWindow = document.getElementById(framename);
-      targetWindow.contentWindow.postMessage(localStorage.getItem('filelist'), "*");
+      getFileList().then(function() {
+        var targetWindow = document.getElementById(framename);
+        targetWindow.contentWindow.postMessage(localStorage.getItem('filelist'), "*");
+      });
   }
 
   function getFile(file, framename) {
@@ -68,7 +70,11 @@
 }
   // Setup
   function checkLogin() {
-    getInfo();
+    getInfo().then(function() {
+      if (localStorage.getItem('info') == "NONE") {
+        console.log("Data is null! Refreshing");
+    refreshScreen(false);
+  } else {
     try {
   if (typeof(Storage) !== "undefined") {
     if (JSON.parse(localStorage.getItem('info')).username == null) {
@@ -96,8 +102,9 @@
   console.log(err)
   //location.replace('setup.html');
 }
+  }
+});
 }
-
 
 
  document.addEventListener('DOMContentLoaded', function() {
@@ -124,7 +131,11 @@
     <nav id="navbar">
     </nav>
 <script>// THIS SUCKS BUT IT THE ONLY THING I COULD GET TO WORK SO
-getInfo();
+getInfo().then(function (){
+  console.log(localStorage.getItem('info'));
+  if (localStorage.getItem('info') == null) {
+    console.log("Data is null! Ignoring");
+  } else {
   if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == true) {
     document.getElementById("navbar").innerHTML += `<div class="nav-wrapper grey lighten-1">
               <a id="activeapp" class="brand-logo black-text">Start</a>
@@ -140,6 +151,8 @@ getInfo();
               </ul>
       </div>`
   }
+}
+});
 </script>
       
   <!-- Modal Structure -->
@@ -256,6 +269,5 @@ getInfo();
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="./code/index.js"></script>
-  <script src="./code/backend.js"></script>
 </body>
 </html>

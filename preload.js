@@ -1,16 +1,18 @@
 // preload.js
+const { trace } = require('console');
 var fs = require('fs'); 
 var os = require('os');
 var filepath = "NONE";
 
+console.log("LOADED");
+console.log("OPERATING SYSTEM: " + os.platform());
+if (os.platform() == "darwin") { // FOR DEBUGGING PURPOSES!
+  filepath = "/Users/amonwarner-fricke/files";
+} else {
+  filepath = "./files";
+}
+
 window.addEventListener('DOMContentLoaded', () => {
-  console.log("LOADED");
-  console.log("OPERATING SYSTEM: " + os.platform());
-  if (os.platform() == "darwin") { // FOR DEBUGGING PURPOSES!
-    filepath = "/Users/amonwarner-fricke/files";
-  } else {
-    filepath = "./files";
-  }
   const replaceText = (selector, text) => {
     const element = document.getElementById(selector)
     if (element) element.innerText = text;
@@ -64,13 +66,12 @@ window.debug = function() {
   fs.readdirSync(filepath + '/');
 }
 
-window.getFileList = function() {
-  fs.readdir(filepath, (err, files) => {
-      console.log("SENDING " + files)
-      localStorage.setItem('filelist', files);
-  })
+window.getFileList = async function() {
+  var files = fs.readdirSync(filepath);
+  console.log("SENDING " + files)
+  localStorage.setItem('filelist', files);
   // Sync
-  fs.readdirSync(filepath);
+  //fs.readdirSync(filepath);
 }
 
 window.getFileData = async function(file) {
@@ -105,13 +106,20 @@ window.saveFile = function(file, type, data) {
 }
 
 
-window.getInfo = function() {
+window.getInfo = async function() {
   console.log("userinfo was requested");
-  fs.readFile(filepath + '/savedata.json', 'utf8', function (err, data) {
+  var data = fs.readFileSync(filepath + '/savedata.json', 'utf8');
+    try {
     var info = JSON.parse(data); // Read the data
-    console.log("Recived " + info)
+    } catch(err) {
+      console.log("ERROR LOADING DATA. First time ig? i gotta fix this");
+      //trace(data);
+      //localStorage.setItem('info', "NONE");
+      //return;
+    }
+    console.log("Recived " + JSON.stringify(info))
     // Set data locally for security reasons(and the fact that i am lazy)
     localStorage.setItem('info', JSON.stringify(info));
     console.log("set");
-  });
+    return;
 }
