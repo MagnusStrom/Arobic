@@ -17,10 +17,9 @@
         <source src="${event.data}" id="ogg" type="video/ogg">
       ERROR. Please make an issue.
       </video>`
-        if (event.data == "") {
-            console.log("no data found? need confirmation on this");
-        // location.reload(); // this should fix the issue!
-        }
+      if (event.data == null) {
+       location.reload(); // this should fix the issue!
+      }
     }
     window.addEventListener('message', receive);
       </script>

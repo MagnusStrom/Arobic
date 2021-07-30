@@ -244,9 +244,8 @@ function exitView() {
     function receive(event) {
       console.log("Received Files: " + event.data);
       document.getElementById("my_text").value = event.data;
-      if (event.data == "") {
-        console.log("no data found? need confirmation on this");
-       // location.reload(); // this should fix the issue!
+      if (event.data == null) {
+       location.reload(); // this should fix the issue!
       }
   }
   window.addEventListener('message', receive);
