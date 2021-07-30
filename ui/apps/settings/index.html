@@ -23,7 +23,7 @@
     let iconx = 370;
     let icony = 90;
     for (const property in object) {
-    document.getElementById("settings").innerHTML += `<a id="${object[property].dataname}" onclick="toggle('${object[property].dataname}')" class="collection-item tooltipped" data-position="bottom" data-tooltip="${object[property].info}">${object[property].name}: ${object[property].status}</a>`
+    document.getElementById("settings").innerHTML += `<a id="${object[property].dataname}" onclick="toggle('${object[property].dataname}', '${object[property].name}', '${object[property].status}')" class="collection-item tooltipped" data-position="bottom" data-tooltip="${object[property].info}">${object[property].name}: ${object[property].status}</a>`
    // console.trace(object[property])
     }
   } else {
@@ -32,11 +32,14 @@
 }
 
 
-function toggle(name) {
-  let pog = JSON.parse(localStorage.getItem('info'));
-  pog.settings[name].status = !pog.settings[name].status;
-  localStorage.setItem('info', JSON.stringify(pog));
-  document.getElementById(pog.settings[name].dataname).innerHTML = `${pog.settings[name].name}: ${pog.settings[name].status}`;
+function toggle(dataname, name, status) {
+  parent.switchSetting(dataname);
+  // monkey mode
+  if (status == "true") {
+    document.getElementById(dataname).innerHTML = `${name}: false`;
+  } else {
+    document.getElementById(dataname).innerHTML = `${name}: true`;
+  }
 }
   </script>
 </head>

@@ -135,18 +135,19 @@ function refreshScreen(resetapps = true) {//im so smart and cool
   var lastappwidth = 0;
   for (const property in object) {
     // poopy butt fart
+    var blacklisted = [
+      "ArobicViewer",
+      "ArobicMedia"
+    ]
+    if (!blacklisted.includes(object[property].repo)) {
     iconx = iconx + 100;
     if (iconx > window.innerWidth - 100) {
       iconx = 0;
       icony += 100;
     }
 
-    var blacklisted = [
-      "ArobicViewer",
-      "ArobicMedia"
-    ]
 
-    if (!blacklisted.includes(object[property].repo)) {
+
       if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == false) { // the right way(also me just being lazy but uno)
       document.getElementById("desktop").innerHTML += `<i id="${object[property].repo}icon" onclick="launchApp('${object[property].repo}')" style="top: ${icony}px; left: ${iconx}px;" class="inline-icon large appicon material-icons white-text tooltipped" data-position="bottom" data-tooltip=${object[property].name}>${object[property].icon}</i>`
       console.trace(`Loaded app ${object[property].name}`);

@@ -105,6 +105,16 @@ window.saveFile = function(file, type, data) {
   }
 }
 
+window.saveSetting = function(setting) {
+  var data = fs.readFileSync(filepath + '/savedata.json', 'utf8'); // utf8
+  console.log(data);
+  let info = JSON.parse(data);
+  info.settings[setting].status = !info.settings[setting].status;
+  fs.writeFile(filepath + '/savedata.json', JSON.stringify(info), (err) => {
+    return;
+  });
+}
+
 
 window.getInfo = async function() {
   console.log("userinfo was requested");

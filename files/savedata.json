@@ -1,1 +1,124 @@
-{"username":"Nuts","apps":{"settings":{"repo":"settings","name":"Settings","version":"0.0.1","icon":"settings","color":"blue-grey lighten-3","cardw":"300px","cardh":"500px","framew":"200px","frameh":"450px","scale":"1.1","defaultapp":true,"supportsfullscreen":false},"pkginst":{"repo":"pkginst","name":"PackageInstaller","version":"0.0.2","icon":"get_app","color":"grey lighten-2","cardw":"700px","cardh":"250px","framew":"600px","frameh":"200px","scale":"1.1","defaultapp":true,"supportsfullscreen":false},"filemanager":{"repo":"filemanager","name":"Files","version":"0.0.2","icon":"folder","color":"grey lighten-3","cardw":"300px","cardh":"500px","framew":"200px","frameh":"450px","scale":"1.1","defaultapp":true,"supportsfullscreen":false},"appstore":{"repo":"appstore","name":"AppStore","version":"0.0.2","icon":"dashboard","color":"grey lighten-3","cardw":"450px","cardh":"400px","framew":"350px","frameh":"250px","scale":"1.1","defaultapp":true,"supportsfullscreen":false},"TaskManager":{"repo":"TaskManager","name":"TaskManager","version":"0.0.1","icon":"grid_view","color":"grey lighten-3","cardw":"400px","cardh":"400px","framew":"400px","frameh":"350px","scale":"0.8","defaultapp":true,"supportsfullscreen":false},"ArobicViewer":{"repo":"ArobicViewer","name":"ArobicViewer","version":"0.0.1","icon":"visibility","color":"grey lighten-3","cardw":"400px","cardh":"560px","framew":"400px","frameh":"530px","scale":"0.8","defaultapp":true,"supportsfullscreen":false}},"files":{"welcome.txt":{"filename":"welcome","filepath":"welcome.txt","type":"text","content":"Hello! Welcome to your new operating system, coded only in HTML and JS! Enjoy all the features, and feel free to help on github!"}},"settings":{"lightmode":{"dataname":"lightmode","name":"Light Mode","status":false,"info":"Sets the theme of the OS to white."},"fullscreen":{"dataname":"fullscreen","name":"Fullscreen Apps","status":false,"info":"Allows you to quickly press F twice to enable fullscreen."},"forcefullscreen":{"dataname":"forcefullscreen","name":"Bypass Fullscreen Lock","status":false,"info":"If fullscreen is enabled, Allows any app to be fullscreened."},"showappversions":{"dataname":"showappversions","name":"Show App Versions","status":false,"info":"Show the versions of apps installed on your device."}},"openapps":{}}
+{
+    "username": "Nuts",
+    "apps": {
+        "settings": {
+            "repo": "settings",
+            "name": "Settings",
+            "version": "0.0.1",
+            "icon": "settings",
+            "color": "blue-grey lighten-3",
+            "cardw": "300px",
+            "cardh": "500px",
+            "framew": "200px",
+            "frameh": "450px",
+            "scale": "1.1",
+            "defaultapp": true,
+            "supportsfullscreen": false
+        },
+        "pkginst": {
+            "repo": "pkginst",
+            "name": "PackageInstaller",
+            "version": "0.0.2",
+            "icon": "get_app",
+            "color": "grey lighten-2",
+            "cardw": "700px",
+            "cardh": "250px",
+            "framew": "600px",
+            "frameh": "200px",
+            "scale": "1.1",
+            "defaultapp": true,
+            "supportsfullscreen": false
+        },
+        "filemanager": {
+            "repo": "filemanager",
+            "name": "Files",
+            "version": "0.0.2",
+            "icon": "folder",
+            "color": "grey lighten-3",
+            "cardw": "300px",
+            "cardh": "500px",
+            "framew": "200px",
+            "frameh": "450px",
+            "scale": "1.1",
+            "defaultapp": true,
+            "supportsfullscreen": false
+        },
+        "appstore": {
+            "repo": "appstore",
+            "name": "AppStore",
+            "version": "0.0.2",
+            "icon": "dashboard",
+            "color": "grey lighten-3",
+            "cardw": "450px",
+            "cardh": "400px",
+            "framew": "350px",
+            "frameh": "250px",
+            "scale": "1.1",
+            "defaultapp": true,
+            "supportsfullscreen": false
+        },
+        "TaskManager": {
+            "repo": "TaskManager",
+            "name": "TaskManager",
+            "version": "0.0.1",
+            "icon": "grid_view",
+            "color": "grey lighten-3",
+            "cardw": "400px",
+            "cardh": "400px",
+            "framew": "400px",
+            "frameh": "350px",
+            "scale": "0.8",
+            "defaultapp": true,
+            "supportsfullscreen": false
+        },
+        "ArobicViewer": {
+            "repo": "ArobicViewer",
+            "name": "ArobicViewer",
+            "version": "0.0.1",
+            "icon": "visibility",
+            "color": "grey lighten-3",
+            "cardw": "400px",
+            "cardh": "560px",
+            "framew": "400px",
+            "frameh": "530px",
+            "scale": "0.8",
+            "defaultapp": true,
+            "supportsfullscreen": false
+        }
+    },
+    "files": {
+        "welcome.txt": {
+            "filename": "welcome",
+            "filepath": "welcome.txt",
+            "type": "text",
+            "content": "Hello! Welcome to your new operating system, coded only in HTML and JS! Enjoy all the features, and feel free to help on github!"
+        }
+    },
+    "settings": {
+        "lightmode": {
+            "dataname": "lightmode",
+            "name": "Light Mode",
+            "status": false,
+            "info": "Sets the theme of the OS to white."
+        },
+        "fullscreen": {
+            "dataname": "fullscreen",
+            "name": "Fullscreen Apps",
+            "status": false,
+            "info": "Allows you to quickly press F twice to enable fullscreen."
+        },
+        "forcefullscreen": {
+            "dataname": "forcefullscreen",
+            "name": "Bypass Fullscreen Lock",
+            "status": false,
+            "info": "If fullscreen is enabled, Allows any app to be fullscreened."
+        },
+        "showappversions": {
+            "dataname": "showappversions",
+            "name": "Show App Versions",
+            "status": false,
+            "info": "Show the versions of apps installed on your device."
+        }
+    },
+    "openapps": {}
+}
