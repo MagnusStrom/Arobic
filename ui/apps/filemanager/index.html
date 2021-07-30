@@ -37,6 +37,10 @@
         parent.notification("This viewer is in beta.");
         parent.launchApp('ArobicMedia', 'openogg.html?file=' + file);
       }
+      if (file.endsWith(".gif")) {
+        parent.notification("This viewer is in beta.");
+        parent.launchApp('ArobicMedia', 'opengif.html?file=' + file);
+      }
     }
 
     function receive(event) {

@@ -2,7 +2,7 @@
 
 </head>
 <body>
-  <div id="video">
+  <div id="gif">
     <p>Loading content...</p>
   </div>
       <script>
@@ -10,13 +10,10 @@
         const urlParams = new URLSearchParams(queryString);
         const file = urlParams.get('file');
         parent.getFilePath(file, window.frameElement.id)
-        
+
         function receive(event) {
         console.log("Received Path: " + event.data);
-        document.getElementById("video").innerHTML = `<video width="320" height="240" controls>
-        <source src="${event.data}" id="mp4" type="video/mp4">
-      ERROR. Please make an issue.
-      </video>`
+        document.getElementById("gif").innerHTML = `<img src="${event.data}" width="250" />`
       if (event.data == null) {
        location.reload(); // this should fix the issue!
       }
