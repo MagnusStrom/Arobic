@@ -123,9 +123,8 @@ window.installApp = function(info) {
     "supportsfullscreen": info[10],
     "desc": info[11]
   }
-  fs.writeFile(filepath + '/savedata.json', JSON.stringify(pog), (err) => {
-    return;
-  });
+  fs.writeFileSync(filepath + '/savedata.json', JSON.stringify(pog));
+  return;
 }
 
 window.saveSetting = function(setting) {
