@@ -49,9 +49,9 @@ window.save = function(userdata) {
   });
 }
 
-window.reset = function() {
+window.resetData = function() {
   info = {};
-  fs.writeFile(filepath + '/savedata.json', info, (err) => {
+  fs.writeFile(filepath + '/savedata.json', JSON.stringify(info), (err) => {
     location.replace("index.html")
   });
 }

@@ -199,7 +199,7 @@ getInfo().then(function (){
   })
   .then((willDelete) => {
     if (willDelete) {
-      localStorage.setItem('info', '');
+      resetData();
       location.replace('setup.html');
     }
   });
