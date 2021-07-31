@@ -140,7 +140,12 @@ window.saveSetting = function(setting) {
 
 window.getInfo = async function() {
   console.log("userinfo was requested");
+  try {
   var data = fs.readFileSync(filepath + '/savedata.json', 'utf8');
+  } catch(err) {
+    console.log("NO FILE");
+    location.replace("setup.html");
+  }
     try {
     var info = JSON.parse(data); // Read the data
     } catch(err) {
