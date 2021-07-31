@@ -347,8 +347,10 @@ function doubleFEvent() {
       M.toast({html: "This feature is currently disabled. Enable this feature in the settings app!"});
       return;
     }
-     let object = JSON.parse(localStorage.getItem('info')).apps[usingapp];
-     console.trace(JSON.parse(localStorage.getItem('info')).settings.forcefullscreen.status);
+    //usingapp = usingapp.split("_")[0];
+     let object = JSON.parse(localStorage.getItem('info')).apps[usingapp.split("_")[0]];
+     console.log(object.supportsfullscreen);
+   //console.log(JSON.parse(localStorage.getItem('info')).settings.forcefullscreen.status);
      if (document.getElementById("desktop") != '') {  // could def do this in a better way but im lazy so
       if (object.supportsfullscreen || JSON.parse(localStorage.getItem('info')).settings.forcefullscreen.status == true) {
         if (JSON.parse(localStorage.getItem('info')).settings.forcefullscreen.status == true && !object.supportsfullscreen) {
@@ -357,7 +359,7 @@ function doubleFEvent() {
         document.getElementById("fullscreenelem").innerHTML = '';
         document.getElementById('desktop').innerHTML = '';
         document.getElementById(usingapp).style.display = "none";
-        document.getElementById("fullscreenelem").innerHTML += `<iframe id="fullscreenframe" src="${document.getElementById(usingapp + "frame").src}" style="position:fixed; top:0; left:0; bottom:0; right:0; border: 0; width: 100%; height: 100%; overflow: visible;"></iframe>\n<a class="waves-effect waves-light btn btn-red" onclick="closeFullScreen()"><i class="material-icons left">cancel</i>Close</a>`;
+        document.getElementById("fullscreenelem").innerHTML += `<iframe id="fullscreenframe" src="${document.getElementById(usingapp.split("_")[0] + "frame_" + usingapp.split("_")[1]).src}" style="position:fixed; top:0; left:0; bottom:0; right:0; border: 0; width: 100%; height: 100%; overflow: visible;"></iframe>\n<a class="waves-effect waves-light btn btn-red" onclick="closeFullScreen()"><i class="material-icons left">cancel</i>Close</a>`;
         M.toast({html: "This feature is in beta. Be aware of bugs"});
       } else {
         M.toast({html: "This app does not support fullscreen."});
