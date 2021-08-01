@@ -58,7 +58,7 @@ window.resetData = function() {
 }
 
 window.createFolderAtPath = function(path, folderName) {
-  fs.mkdirSync(folderName);
+  fs.mkdirSync(folderName + "/");
 }
 
 window.debug = function() {

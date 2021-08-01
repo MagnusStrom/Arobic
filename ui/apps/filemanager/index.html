@@ -45,10 +45,14 @@
       lastpath = path;
     }
 
-    function createFolder(createpath) {
-      parent.ask("Enter folder name").then(function() {
-        parent.createFolder(createpath, localStorage.getItem('input'));
-      });
+    function createFolder() {
+      document.getElementById("createfolder").innerHTML = `<div class="input-field col s6">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Folder Name</label>
+        </div>`;
+        console.log(currentpath);
+        document.getElementById("files").innerHTML += `<a onclick="parent.createFolder('${currentpath}', document.getElementById('last_name').value);" class="collection-item">Create</a>`;
+       // parent.createFolder(createpath, localStorage.getItem('input'));
     }
     
     function loadFile(file) {
@@ -94,7 +98,7 @@
       if (currentpath != "") {
         document.getElementById("files").innerHTML += `<a onclick="loadFiles('', 'false')" class="collection-item">Go Back</a>`;
       }
-      document.getElementById("files").innerHTML += `<a onclick="createFolder('${currentpath}')" class="collection-item">Create Folder</a>`;
+      document.getElementById("files").innerHTML += `<div id="createfolder"> <a onclick="createFolder()" class="collection-item" >Create Folder</a></div>`;
   }
 
     window.addEventListener('message', receive);
