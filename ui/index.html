@@ -199,16 +199,16 @@ getInfo().then(function (){
       <script>
 
         function updateBattery() {
-          const browserBattery = require('browser-battery');
+         // const browserBattery = require('browser-battery');
 
-          browserBattery().then(battery => {
+         /* browserBattery().then(battery => {
             console.log(battery);
         //   document.getElementById("battery").innerHTML += battery.level + "%";
             if (battery.charging) {
               document.getElementById("battery").innerHTML = `<i class="material-icons large">battery_charging_full</i>`;
             } else {
               document.getElementById("battery").innerHTML = `<i class="material-icons large">battery_full</i>`;
-            }
+            }*/
             /*
             {
               charging: false
@@ -221,7 +221,7 @@ getInfo().then(function (){
               onlevelchange: null
             }
             */
-          });
+        //  });
       }
 
 
