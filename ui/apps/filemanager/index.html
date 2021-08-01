@@ -15,42 +15,89 @@
     href="https://fonts.googleapis.com/icon?family=Material+Icons"
   />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
-    function loadFiles() {
-      var files = parent.findFiles(window.frameElement.id);
+    var currentpath = "";
+    var lastpath = "";
+    function loadFiles(path, usecurrentpath = true) {
+      console.log("LOADING PATH: " + path);
+      // this code is monkey
+      if ((currentpath != "" && currentpath != undefined) && usecurrentpath == true) {
+        console.log("CURRENT PATH FOUND: " + currentpath);
+        console.log("^^^ PATH: " + path);
+        console.log("FOUND: " + currentpath + "/" + path);
+        var getpath = currentpath + "/" + path;
+        console.log("PATH GOING TOO: " + getpath)
+      }
+      else  {
+        if (path != "") {
+          currentpath = path;
+          var getpath = currentpath;
+        } else {
+          currentpath = "";
+          var getpath = "";
+        }
+      }
+
+      console.log("Accessing Path:" + getpath);
+      var files = parent.findFiles(window.frameElement.id, getpath);
+      currentpath = getpath; // this worked really fucking weell lol first try too god damn
+      lastpath = path;
     }
 
+    function createFolder(createpath) {
+      parent.ask("Enter folder name").then(function() {
+        parent.createFolder(createpath, localStorage.getItem('input'));
+      });
+    }
+    
     function loadFile(file) {
+      if (currentpath == undefined) {
+        console.log("currentpath is null.")
+        currentpath = "";
+      }
       console.log("Loading file " + file)
-      if (file.endsWith(".txt")) {
-        parent.launchApp('ArobicViewer', 'opentxt.html?file=' + file);
+      if (file.endsWith(".txt") || file.endsWith(".abrp")) {
+        parent.launchApp('ArobicViewer', 'opentxt.html?file=' + currentpath + "/" + file);
       }
-      if (file.endsWith(".json")) {
+      else if (file.endsWith(".json")) {
         parent.notification("A better json viewer is coming soon.");
-        parent.launchApp('ArobicViewer', 'opentxt.html?file=' + file);
+        parent.launchApp('ArobicViewer', 'opentxt.html?file=' + currentpath + "/" + file);
       }
-      if (file.endsWith(".mp4")) {
+      else if (file.endsWith(".mp4")) {
         parent.notification("This viewer is in beta.");
-        parent.launchApp('ArobicMedia', 'openmp4.html?file=' + file);
+        parent.launchApp('ArobicMedia', 'openmp4.html?file=' + currentpath + "/" + file);
       }
-      if (file.endsWith(".ogg")) {
+      else if (file.endsWith(".ogg")) {
         parent.notification("This viewer is in beta.");
-        parent.launchApp('ArobicMedia', 'openogg.html?file=' + file);
+        parent.launchApp('ArobicMedia', 'openogg.html?file=' + currentpath + "/" + file);
       }
-      if (file.endsWith(".gif")) {
+      else if (file.endsWith(".gif")) {
         parent.notification("This viewer is in beta.");
-        parent.launchApp('ArobicMedia', 'opengif.html?file=' + file);
+        parent.launchApp('ArobicMedia', 'opengif.html?file=' + currentpath + "/" + file);
+      }
+      else if (!file.includes(".")) { // check that the file does not have an ending
+        loadFiles(file);
+      } else {
+        parent.notification("This file type is not supported.");
       }
     }
 
     function receive(event) {
       console.log(event.data);
+      document.getElementById("files").innerHTML = "";
       event.data.split(",").forEach(funnyFunc);
       function funnyFunc(index, item) {
         document.getElementById("files").innerHTML += `<a onclick="loadFile('${index}')" class="collection-item">${index}</a>`;
       };
+
+      if (currentpath != "") {
+        document.getElementById("files").innerHTML += `<a onclick="loadFiles('', 'false')" class="collection-item">Go Back</a>`;
+      }
+      document.getElementById("files").innerHTML += `<a onclick="createFolder('${currentpath}')" class="collection-item">Create Folder</a>`;
   }
-window.addEventListener('message', receive);
+
+    window.addEventListener('message', receive);
   </script>
 </head>
 <body onload="loadFiles()">

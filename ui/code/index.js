@@ -39,9 +39,9 @@ window.onscroll = function () { window.scrollTo(0, 0); };
 window.addEventListener('load', function(e) {
   if (navigator.onLine) {
     console.trace("Wifi Online");
-    document.getElementById("wifi").innerHTML = `<li>WIFI ON</li>`;
+    document.getElementById("wifi").innerHTML = `<li><i class="material-icons">signal_wifi_4_bar</i></li>`;
   } else {
-    document.getElementById("wifi").innerHTML = `<li>WIFI OFF</li>`;
+    document.getElementById("wifi").innerHTML = `<li><i class="material-icons">signal_wifi_0_bar</i></li>`;
    console.trace("Wifi Offline");
   }
   console.trace(wifi);
@@ -49,12 +49,12 @@ window.addEventListener('load', function(e) {
 
 window.addEventListener('online', function(e) {
   console.trace("Wifi back online");
-  document.getElementById("wifi").innerHTML = `<li>WIFI ON</li>`;
+  document.getElementById("wifi").innerHTML = `<li><i class="material-icons">signal_wifi_4_bar</i></li>`;
 }, false);
 
 window.addEventListener('offline', function(e) {
   console.trace("Wifi back offline"); // listen man idk
-  wifi = `<li>WIFI OFF</li>`;
+  wifi = `<li><i class="material-icons">signal_wifi_0_bar</i></li>`;
 }, false);
 
 
@@ -91,9 +91,29 @@ $(window).resize(function() {
 $('.tooltipped').tooltip();
 });
 
+
+function addMenuItems() {
+  document.getElementById("menuitems").innerHTML = '';
+  var menuapps = [
+    "settings",
+    "Terminal"
+  ]
+  var iconx = 0;
+  menuapps.forEach(function(item) {
+    iconx += 100;
+    if (JSON.parse(localStorage.getItem('info')).settings.lightmode.status == false) { // the right way(also me just being lazy but uno)
+      document.getElementById("desktop").innerHTML += `<i id="${item}icon" onclick="launchApp('${item}')" style="left: ${iconx}px;" class="inline-icon large appicon material-icons white-text">thumbs_up</i>`
+      //console.trace(`Loaded app ${object[property].name}`);
+      } else {
+      document.getElementById("desktop").innerHTML += `<i id="${item}icon" onclick="launchApp('${item}')" style="left: ${iconx}px;" class="inline-icon large appicon material-icons grey-text text-darken-2">thumbs_up</i>`
+      //console.trace(`Loaded app ${object[property].name}`);
+      }
+  });
+}
 // cancer
 function refreshScreen(resetapps = true) {//im so smart and cool
   console.trace("Refreshing screen");
+  addMenuItems();
   getInfo().then(function() {
     // im so tired and this code is shit
     if (localStorage.getItem('info') == null) {
@@ -106,6 +126,7 @@ function refreshScreen(resetapps = true) {//im so smart and cool
               <a id="activeapp" class="brand-logo black-text">Start</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <a class="text-black" id="wifi"></a>
+                <li id="battery"><i class="material-icons">battery_charging_full</i></li>
               </ul>
       </div>`
   } else {
@@ -113,9 +134,11 @@ function refreshScreen(resetapps = true) {//im so smart and cool
               <a id="activeapp" class="brand-logo">Start</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <a id="wifi"></a>
+                <li id="battery"><i class="material-icons">battery_charging_full</i></li>
               </ul>
       </div>`
   }
+  updateBattery();
 
   document.getElementById("username").setAttribute("data-tooltip", JSON.parse(localStorage.getItem('info')).username);
 
@@ -220,11 +243,17 @@ function launchApp(appname, directto = "") {
           card.id = appname + "_" + tasks.openapps[object[appname].repo].open;
           card.className = "app";
           card.style = "display:block";
+
+          getFilePath("custom/" + object[appname].repo + '/' + (directing ? directto : 'index.html'));
+          var custompath = localStorage.getItem(("custom/" + object[appname].repo + '/' + (directing ? directto : 'index.html')) + 'path');
+          console.log("PATH: " + custompath)
+
           card.innerHTML = `
                 <div id="${appname}header_${tasks.openapps[object[appname].repo].open}" class="card ${object[appname].color}" style="width: ${object[appname].cardw}; height: ${object[appname].cardh};">
               <div class="card-content white-text">
                 <span class="card-title center black-text">${object[appname].name}(${tasks.openapps[object[appname].repo].open})</span>
-                <iframe id="${object[appname].repo}frame_${tasks.openapps[object[appname].repo].open}" src="${(object[appname].defaultapp ? 'apps' : 'custom')}/${object[appname].repo}/${directing ? directto : 'index.html'}" scrolling="yes" style="width: ${object[appname].framew}; height: ${object[appname].frameh}; transform: scale(${object[appname].scale}); 
+                <iframe id="${object[appname].repo}frame_${tasks.openapps[object[appname].repo].open}" 
+                src="${object[appname].defaultapp ? ('apps/' + object[appname].repo + '/' + (directing ? directto : 'index.html')) : (custompath)}" scrolling="yes" style="width: ${object[appname].framew}; height: ${object[appname].frameh}; transform: scale(${object[appname].scale}); 
                 transform-origin: 0 0;"></iframe>
             </div>
           </div>

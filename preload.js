@@ -2,6 +2,7 @@
 const { trace } = require('console');
 var fs = require('fs'); 
 var os = require('os');
+const { windowsStore } = require('process');
 var filepath = "NONE";
 
 console.log("LOADED");
@@ -56,6 +57,9 @@ window.resetData = function() {
   });
 }
 
+window.createFolderAtPath = function(path, folderName) {
+  fs.mkdirSync(folderName);
+}
 
 window.debug = function() {
   fs.readdir('./', (err, files) => {
@@ -66,8 +70,8 @@ window.debug = function() {
   fs.readdirSync(filepath + '/');
 }
 
-window.getFileList = async function() {
-  var files = fs.readdirSync(filepath);
+window.getFileList = async function(path) {
+  var files = fs.readdirSync(filepath + "/" + path);
   console.log("SENDING " + files)
   localStorage.setItem('filelist', files);
   // Sync

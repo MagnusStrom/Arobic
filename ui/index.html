@@ -37,8 +37,23 @@
     refreshScreen(false);
 
   }
-  function findFiles(framename) {
-      getFileList().then(function() {
+
+  function createFolder(path, folderName) {
+    createFolderAtPath(path, folderName);
+  }
+  
+  function ask(question) {
+    swal(question, {
+        content: "input",
+      })
+      .then((value) => {
+        localStorage.setItem('input', value);
+        return;
+      });
+  }
+
+  function findFiles(framename, path = "") {
+      getFileList(path).then(function() {
         var targetWindow = document.getElementById(framename);
         targetWindow.contentWindow.postMessage(localStorage.getItem('filelist'), "*");
       });
@@ -55,8 +70,10 @@
   function getFilePath(file, framename) {
     console.log("Getting file path" + file)
     getFilePathData(file).then(function() {
-      var targetWindow = document.getElementById(framename);
-      targetWindow.contentWindow.postMessage(localStorage.getItem(file + 'path'), "*");
+      if (framename != null) {
+        var targetWindow = document.getElementById(framename);
+        targetWindow.contentWindow.postMessage(localStorage.getItem(file + 'path'), "*");
+      }
     });
   }
   
@@ -151,6 +168,7 @@ getInfo().then(function (){
               <a id="activeapp" class="brand-logo black-text">Start</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                   <a class="text-black" id="wifi"></a>
+                  <li id="battery"><i class="material-icons">battery_unknown</i></li>
               </ul>
       </div>`
   } else {
@@ -158,6 +176,7 @@ getInfo().then(function (){
               <a id="activeapp" class="brand-logo">Start</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                   <a id="wifi"></a>
+                  <li id="battery"><i class="material-icons">battery_unknown</i></li>
               </ul>
       </div>`
   }
@@ -176,7 +195,36 @@ getInfo().then(function (){
       Chromium version: <span id="chrome-version"></span><br>
       Electron version: <span id="electron-version"></span></p>
 
+      <h5 id="battery">Battery: </h5>
       <script>
+
+        function updateBattery() {
+          const browserBattery = require('browser-battery');
+
+          browserBattery().then(battery => {
+            console.log(battery);
+        //   document.getElementById("battery").innerHTML += battery.level + "%";
+            if (battery.charging) {
+              document.getElementById("battery").innerHTML = `<i class="material-icons large">battery_charging_full</i>`;
+            } else {
+              document.getElementById("battery").innerHTML = `<i class="material-icons large">battery_full</i>`;
+            }
+            /*
+            {
+              charging: false
+              chargingTime: Infinity
+              dischargingTime: 11160
+              level: 0.6
+              onchargingchange: null
+              onchargingtimechange: null
+              ondischargingtimechange: null
+              onlevelchange: null
+            }
+            */
+          });
+      }
+
+
       for (const dependency of ['chrome', 'node', 'electron']) {
         document.getElementById(`${dependency}-version`).innerText = process.versions[dependency];
       }
@@ -235,7 +283,7 @@ getInfo().then(function (){
 <!-- this could be cool to make the os custom -->
 <!-- CODE TUTORIAL ON AROBIC OS LATER-->
 <div class="fixed-action-btn">
-  <a class="btn-floating btn-large grey lighten-1 modal-trigger tooltipped" data-position="left" data-tooltip="Menu" href="#modal4">
+  <a class="btn-floating btn-large grey lighten-1 modal-trigger tooltipped" data-position="left" data-tooltip="Menu(Click)" href="#modal4">
     <i class="large material-icons black">open_with</i>
   </a>
   <ul>
@@ -279,7 +327,9 @@ getInfo().then(function (){
 <div id="modal4" class="modal bottom-sheet">
   <div class="modal-content">
     <h4>Menu</h4>
-    <p>WIP</p>
+    <div id="menuitems">
+      
+    </div>
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-close waves-effect waves-green btn-flat">Done</a>
@@ -288,5 +338,6 @@ getInfo().then(function (){
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="./code/index.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

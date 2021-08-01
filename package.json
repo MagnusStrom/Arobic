@@ -25,6 +25,7 @@
     "electron-packager": "^15.3.0"
   },
   "dependencies": {
+    "browser-battery": "^2.0.0",
     "electron-builder": "^22.11.7"
   }
 }
