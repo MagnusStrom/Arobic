@@ -8,7 +8,7 @@ var filepath = "NONE";
 console.log("LOADED");
 console.log("OPERATING SYSTEM: " + os.platform());
 if (os.platform() == "darwin") { // FOR DEBUGGING PURPOSES!
-  filepath = "/Users/amonwarner-fricke/files";
+  filepath = "/Users/amonwarner-fricke/Downloads/Arobic/files";
 } else {
   filepath = "./files";
 }
