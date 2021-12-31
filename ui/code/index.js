@@ -408,7 +408,7 @@ function closeFullScreen() {
 
 refreshScreen(); // should make life slightly easier
 
-// Load all 3rd party apps
+// Load all 3rd party appss
 /*
 let object = JSON.parse(localStorage.getItem('info')).apps;
 let iconx = 0;
