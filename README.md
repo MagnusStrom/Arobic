@@ -2,7 +2,7 @@
 
 
 ## Intro
-ArobicOS is a Lightweight, Linux-based OS coded in HTML/CSS/JS.
+ArobicOS is a Lightweight, Linux-based OS with a frontend in HTML/CSS/JS.
 
 This OS is in ALPHA, so expect bugs.
 
