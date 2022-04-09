@@ -2,7 +2,7 @@
 
 
 ## Intro
-ArobicOS is a Lightweight, Linux-based OS with a frontend in HTML/CSS/JS.
+ArobicOS is a Lightweight, Linux-based OS in HTML/CSS/JS.
 
 This OS is in ALPHA, so expect bugs.
 
@@ -19,4 +19,7 @@ Here are some screenshots of ArobicOS:
 ## Building
 ArobicOS is built using electron, so install electron using the tutorial at https://www.electronjs.org/ and run npm start in the folder. This will create a debug build.
 
-ammount of times i cheese github actions: 3
+## FAQ
+**Why?**: I was really into HTML at the time of starting this and wanted to show off my skill, so I made this. Now I get random bursts of motivation to continue it.
+
+**No, why would I use it?**: It's a good simple os for VM testing, or just to mess around.
