@@ -23,3 +23,9 @@ ArobicOS is built using electron, so install electron using the tutorial at http
 **Why?**: I was really into HTML at the time of starting this and wanted to show off my skill, so I made this. Now I get random bursts of motivation to continue it.
 
 **No, why would I use it?**: It's a good simple os for VM testing, or just to mess around.
+
+## To-Do
+- Focus apps when they start
+- Fix clock showing up on homescreen
+- Fix menu button click issue
+- nightmare
